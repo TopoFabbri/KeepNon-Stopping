@@ -1,9 +1,16 @@
 local player = {}
 local avoidables = {}
 
+for i = 1, 100 do
+    avoidables[i] = {}
+end
+
 function love.load()
     avoidables.speed = 30
+    avoidables.max = 100
 
+    createAvoidable()
+    
     player.pos = {
         x = love.graphics.getWidth() / 2,
         y = love.graphics.getHeight() * (7 / 8)
@@ -21,7 +28,6 @@ end
 
 function love.update(dt)
 
-    createAvoidable()
 
     if love.keyboard.isDown('right') then
         player.pos.x = player.pos.x + player.speed * dt
@@ -33,13 +39,16 @@ function love.update(dt)
 end
 
 function love.draw()
+    
     love.graphics.setColor(.1, .5, .6, 1)
     love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
     love.graphics.setColor(0, 0, 0, 1)
     love.graphics.polygon("fill", player.tri)
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.circle("fill", avoidables.pos.x, avoidables.pos.y, avoidables.size)
 
+    for i = 1, avoidables.max do
+        love.graphics.setColor(0, 0, 0, 1)
+        love.graphics.circle("fill", avoidables[i].pos.x, avoidables[i].pos.y, avoidables[i].size)
+    end
 end
 
 function updateVertices()
@@ -52,13 +61,16 @@ function createAvoidable()
     local randomNumber
     local randomNumberSize
 
-    randomNumber = love.math.random(20)
-    
-    randomNumberSize = love.math.random(10, 60)
+    for i = 1, avoidables.max do
 
-    avoidables.pos = {
-        x = love.graphics.getWidth() * (randomNumber / 20) ,
-        y = love.graphics.getHeight() * 0
-    }
-    avoidables.size = randomNumberSize
+        randomNumber = love.math.random(20)
+        randomNumberSize = love.math.random(10, 60)
+        
+        avoidables[i].size = randomNumberSize
+
+        avoidables[i].pos = {
+            x = love.graphics.getWidth() *  (randomNumber / 20),
+            y = love.graphics.getHeight() * 0 - 50
+        }
+    end
 end
