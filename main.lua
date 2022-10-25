@@ -6,8 +6,6 @@ for i = 1, 100 do
 end
 
 function love.load()
-    avoidables.speed = 30
-    avoidables.max = 100
 
     createAvoidable()
     
@@ -66,6 +64,8 @@ function createAvoidable()
         randomNumber = love.math.random(20)
         randomNumberSize = love.math.random(10, 60)
         
+        avoidables[i].speed = 30
+        avoidables[i].max = 100
         avoidables[i].size = randomNumberSize
 
         avoidables[i].pos = {
