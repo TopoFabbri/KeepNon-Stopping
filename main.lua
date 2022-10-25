@@ -82,8 +82,8 @@ function setAvoidable(i)
     avoidables[i].counter = .1 * i
 
     randomNumber = love.math.random(20)
-    randomNumberSize = love.math.random(10, 45)
-    randomNumberSpeed = love.math.random(250, 600)
+    randomNumberSize = love.math.random(10, 35)
+    randomNumberSpeed = love.math.random(150, 400)
 
     avoidables[i].speed = randomNumberSpeed
     avoidables[i].size = randomNumberSize
