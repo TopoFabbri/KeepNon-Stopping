@@ -83,8 +83,9 @@ function setAvoidable(i)
 
     randomNumber = love.math.random(20)
     randomNumberSize = love.math.random(10, 45)
+    randomNumberSpeed = love.math.random(250, 600)
 
-    avoidables[i].speed = 300
+    avoidables[i].speed = randomNumberSpeed
     avoidables[i].size = randomNumberSize
 
     avoidables[i].color = {1, 1, 1, 1}
