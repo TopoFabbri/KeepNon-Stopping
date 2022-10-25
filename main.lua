@@ -19,7 +19,7 @@ function love.load()
     }
 
     player.size = 15
-    player.speed = 600
+    player.speed = 300
     updateVertices()
 end
 
@@ -57,14 +57,14 @@ function love.draw()
 
     score = math.floor(score * 100) / 100
     highscore = math.floor(highscore * 100) / 100
-    
+
     love.graphics.print(score, 5, 5, 0, 1.5, 1.5)
     love.graphics.print(highscore, 5, 30, 0, 1.5, 1.5)
 end
 
 function updateVertices()
-    player.tri = {player.pos.x, player.pos.y - player.size, player.pos.x - player.size,
-                  player.pos.y + player.size, player.pos.x + player.size, player.pos.y + player.size}
+    player.tri = {player.pos.x, player.pos.y - player.size, player.pos.x - player.size, player.pos.y + player.size,
+                  player.pos.x + player.size, player.pos.y + player.size}
 
 end
 
@@ -148,4 +148,29 @@ function input(dt)
     if love.keyboard.isDown('left') then
         player.pos.x = player.pos.x - player.speed * dt
     end
+
+    local touches = love.touch.getTouches()
+
+    for i, id in ipairs(touches) do
+        local x, y = love.touch.getPosition(id)
+        love.graphics.circle("fill", x, y, 20)
+
+        if x > player.pos.x then
+            player.pos.x = player.pos.x + player.speed * dt
+        end
+        if x < player.pos.x then
+            player.pos.x = player.pos.x - player.speed * dt
+        end
+    end
 end
+
+-- function love.touchmoved(id, x, y, dx, dy, pressure)
+
+--     local dt = love.timer.getDelta()
+--     if x > player.pos.x then
+--         player.pos.x = player.pos.x + player.speed * dt
+--     end
+--     if x < player.pos.x then
+--         player.pos.x = player.pos.x - player.speed * dt
+--     end
+-- end
